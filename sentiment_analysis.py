@@ -60,7 +60,7 @@ def encode_text_to_IDs(text):
     for word in words:
         try:
             ids.append(vocab.index(word))
-        except IndexError:
+        except ValueError:
             ids.append(UNKNOWN_WORD)
     return ids
 
