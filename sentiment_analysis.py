@@ -35,10 +35,12 @@ for filename in text_dataset_filenames:
             data.append(line[:-3])
             labels.append(int(line[-2]))
 
-# later make method for new input cleaning
 # clean up data
+def clean_sentence(sentence):
+    return sub('[^0-9a-z ]+', '', sentence.lower())
+
 for i in range(len(data)):
-    data[i] = sub('[^a-z0-9 ]+', '', data[i].lower())
+    data[i] = clean_sentence(data[i])
 
 # get sorted (most frequent first) vocabulary
 all_words = []
@@ -93,3 +95,7 @@ model.fit(training_data, training_labels, batch_size, epochs)
 #
 ## test model
 #test_results = model.evaluate(testing_data, testing_labels, batch_size)
+
+# apply net to new input
+def get_sentiment(sentence):
+    return model.predict(keras.preprocessing.sequence.pad_sequences([encode_text_to_IDs(clean_sentence(sentence))], sequence_max_len, padding='post', value=-1))[0][0]
