@@ -51,6 +51,7 @@ for line in data:
 word_frequency = Counter(all_words)
 vocab_tuples_sorted = word_frequency.most_common()
 vocab = [vocab_tuple[0] for vocab_tuple in vocab_tuples_sorted]
+vocab = vocab[:max_vocab_size - 1]
 vocab.append('unknownword')
 
 # make numeric ID encoder
