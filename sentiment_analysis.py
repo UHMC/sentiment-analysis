@@ -49,7 +49,7 @@ for line in data:
     for word in line.split():
         all_words.append(word)
 word_frequency = Counter(all_words)
-vocab_tuples_sorted = list(word_frequency.most_common())
+vocab_tuples_sorted = word_frequency.most_common()
 vocab = [vocab_tuple[0] for vocab_tuple in vocab_tuples_sorted]
 vocab.append('unknownword')
 
