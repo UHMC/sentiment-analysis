@@ -13,11 +13,11 @@ from tensorflow import keras
 
 # settings
 max_vocab_size = 5000
-num_embedding_dims = 32
-num_hidden_nodes = 32
+num_embedding_dims = 128
+num_hidden_nodes = 64
 sequence_max_len = 100
-batch_size = 300
-epochs = 10
+batch_size = 150
+epochs = 20
 UNKNOWN_WORD = -1
 
 # list of files of lines of tab-separated values
