@@ -18,6 +18,7 @@ num_hidden_nodes = 32
 sequence_max_len = 100
 batch_size = 300
 epochs = 10
+UNKNOWN_WORD = -1
 
 # list of files of lines of tab-separated values
 text_dataset_filenames = [
@@ -60,7 +61,7 @@ def encode_text_to_IDs(text):
         try:
             ids.append(vocab.index(word))
         except IndexError:
-            ids.append(-1)
+            ids.append(UNKNOWN_WORD)
     return ids
 
 # make numeric ID decoder
@@ -83,7 +84,7 @@ model.compile(tf.train.AdamOptimizer(), 'binary_crossentropy', ['accuracy'])
 training_data = []
 for datum in data:
     training_data.append(encode_text_to_IDs(datum))
-training_data = keras.preprocessing.sequence.pad_sequences(training_data, sequence_max_len, padding='post', value=-1)
+training_data = keras.preprocessing.sequence.pad_sequences(training_data, sequence_max_len, padding='post', value=UNKNOWN_WORD)
 training_labels = labels
 
 # train model
@@ -98,4 +99,4 @@ model.fit(training_data, training_labels, batch_size, epochs)
 
 # apply net to new input
 def get_sentiment(sentence):
-    return model.predict(keras.preprocessing.sequence.pad_sequences([encode_text_to_IDs(clean_sentence(sentence))], sequence_max_len, padding='post', value=-1))[0][0]
+    return model.predict(keras.preprocessing.sequence.pad_sequences([encode_text_to_IDs(clean_sentence(sentence))], sequence_max_len, padding='post', value=UNKNOWN_WORD))[0][0]
