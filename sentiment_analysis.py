@@ -33,7 +33,7 @@ labels = []
 for filename in text_dataset_filenames:
     with open(filename) as file:
         for line in file:
-            data.append(line[:-3])
+            data.append(line[ : -3])
             labels.append(int(line[-2]))
 
 # clean up data
@@ -51,7 +51,7 @@ for line in data:
 word_frequency = Counter(all_words)
 vocab_tuples_sorted = word_frequency.most_common()
 vocab = [vocab_tuple[0] for vocab_tuple in vocab_tuples_sorted]
-vocab = vocab[:max_vocab_size - 1]
+vocab = vocab[ : max_vocab_size - 1]
 vocab.append('unknownword')
 
 # make numeric ID encoder
@@ -80,8 +80,8 @@ model.summary()
 # configure for training
 model.compile(tf.train.AdamOptimizer(), 'binary_crossentropy', ['accuracy'])
 
-# later split data/labels into training, validation, and testing
 # produce training_data and training_labels
+#     encode and pad data
 training_data = []
 for datum in data:
     training_data.append(encode_text_to_IDs(datum))
@@ -90,13 +90,6 @@ training_labels = labels
 
 # train model
 model.fit(training_data, training_labels, batch_size, epochs)
-
-## produce testing_data
-#testing_data = training_data
-#testing_labels = training_labels
-#
-## test model
-#test_results = model.evaluate(testing_data, testing_labels, batch_size)
 
 # apply net to new input
 def get_sentiment(sentence):
