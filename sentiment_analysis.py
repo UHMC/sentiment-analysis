@@ -2,6 +2,8 @@
 """
 Created on Tue Jul 24 16:16:23 2018
 
+Inspired by code (C) 2017 François Chollet under MIT license, from https://www.tensorflow.org/tutorials/keras/basic_text_classification
+
 @author: Saxon Knight
 """
 
